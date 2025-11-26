@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hypercave - How Cave Work</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --cave-brown: #8B5A2B;
+      --cave-dark: #4A3520;
+      --cave-stone: #5C5048;
+      --glow-gold: #FFD700;
+      --glow-orange: #FFA500;
+      --bg-dark: #1a1410;
+      --text-light: #E8DCC8;
+      --text-muted: #9A8B7A;
+    }
+
+    body {
+      font-family: 'Freckle Face', cursive;
+      background-color: var(--bg-dark);
+      background-image: url('../hypercave.png');
+      background-size: 100% 100%;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+      color: var(--text-light);
+      line-height: 1.8;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 0 3rem 0;
+    }
+
+    h1 {
+      font-size: 3rem;
+      color: var(--glow-gold);
+      text-shadow: 0 0 20px var(--glow-orange), 0 0 2px var(--glow-orange);
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.2em;
+    }
+
+    .subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .nav-btn {
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--glow-orange) 0%, var(--glow-gold) 100%);
+      border: none;
+      border-radius: 8px;
+      color: var(--bg-dark);
+      font-family: 'Freckle Face', cursive;
+      font-size: 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(255, 165, 0, 0.4);
+    }
+
+    .section {
+      background: linear-gradient(180deg, rgba(74, 53, 32, 0.8) 0%, rgba(26, 20, 16, 0.9) 100%);
+      border: 2px solid var(--cave-brown);
+      border-radius: 16px;
+      padding: 2rem;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    h2 {
+      font-size: 1.8rem;
+      color: var(--glow-gold);
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    h3 {
+      font-size: 1.3rem;
+      color: var(--glow-orange);
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+
+    p {
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      color: var(--text-light);
+    }
+
+    .warning-box {
+      background: rgba(139, 90, 43, 0.2);
+      border: 2px solid var(--glow-orange);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .warning-box strong {
+      color: var(--glow-orange);
+      font-size: 1.1rem;
+    }
+
+    .info-box {
+      background: rgba(92, 80, 72, 0.3);
+      border: 1px solid var(--cave-stone);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+
+    .code-box {
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid var(--cave-stone);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin: 1rem 0;
+      color: var(--glow-gold);
+    }
+
+    ul {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .fee-highlight {
+      color: var(--glow-orange);
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.4rem;
+      }
+
+      .section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>HYPERCAVE</h1>
+      <p class="subtitle">HOW CAVE WORK - ME TEACH YOU</p>
+      <div class="nav-buttons">
+        <a href="/" class="nav-btn">GO BACK CAVE</a>
+      </div>
+    </header>
+
+    <div class="section">
+      <h2>WHAT CAVE DO?</h2>
+      <p>
+        CAVE HIDE YOU ROCK AND SHINY THING FROM BAD PEOPLE. YOU PUT TOKEN IN CAVE, THEY NO SHOW IN YOU WALLET. EVEN IF BAD PEOPLE MAKE YOU SHOW ALL WALLET, THEY NO SEE WHAT IN CAVE.
+      </p>
+      <p>
+        CAVE USE NFT AS KEY. YOU PICK NFT, YOU HIDE TOKEN WITH NFT. ONLY YOU WITH NFT CAN TAKE TOKEN OUT.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>WHY ME NEED CAVE?</h2>
+      
+      <h3>PROTECT FROM BAD PEOPLE</h3>
+      <p>
+        BAD PEOPLE WITH WRENCH CAN MAKE YOU SHOW WALLET. BUT THEY NO FIND TOKEN IN CAVE!
+      </p>
+
+      <h3>PROTECT FROM TOO MUCH RULE PEOPLE</h3>
+      <p>
+        SOMETIMES AUTHORITY PEOPLE WANT SEE ALL YOU HAVE. CAVE HELP YOU KEEP SOME PRIVATE. EVEN WHEN FORCED SHOW EVERYTHING, CAVE ASSETS HIDDEN BEHIND NFT.
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>HOW CAVE HIDE THINGS?</h2>
+      
+      <p>
+        CAVE NO KEEP SIMPLE LIST LIKE "NFT #1 → 100 TOKEN". TOO EASY FOR SNOOP PEOPLE TO FIND. INSTEAD, CAVE USE SECRET METHOD TO STORE DATA WITH SPECIAL KEY SYSTEM THAT LOOK RANDOM.
+      </p>
+      
+      <p>
+        YOU WITH RIGHT NFT CAN ACCESS YOU TOKEN FAST AND EASY. BUT SNOOP PEOPLE NEED DO MUCH WORK TO BUILD MAP OF ALL BALANCES. NOT IMPOSSIBLE, JUST HARDER.
+      </p>
+
+      <div class="info-box">
+        <p><strong>IMPORTANT:</strong> CAVE NO MAKE YOU INVISIBLE! WHEN YOU PUT TOKEN IN CAVE OR TAKE OUT, TRANSACTION ON PUBLIC LEDGER. PEOPLE CAN SEE YOU DO SOMETHING WITH CAVE. CAVE JUST MAKE IT HARDER TO BUILD COMPLETE MAP OF ALL BALANCES WITHOUT DOING MUCH WORK.</p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>HOW USE CAVE?</h2>
+      
+      <h3>THREE CAVE ACTION</h3>
+      
+      <div class="info-box">
+        <p><strong>IN CAVE:</strong> PUT TOKEN IN CAVE</p>
+        <ul>
+          <li>YOU PICK NFT FOR USE AS KEY</li>
+          <li>YOU PICK WHAT TOKEN PUT IN (ONE OR MANY)</li>
+          <li>YOU SAY HOW MUCH</li>
+          <li>TOKEN GO IN CAVE, HIDE WITH NFT</li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <p><strong>OUT CAVE:</strong> TAKE TOKEN FROM CAVE</p>
+        <ul>
+          <li>YOU SHOW NFT KEY</li>
+          <li>YOU PICK WHAT TOKEN TAKE OUT (ONE OR MANY)</li>
+          <li>YOU SAY HOW MUCH</li>
+          <li>CAVE GIVE YOU TOKEN (MINUS SMALL FEE)</li>
+        </ul>
+      </div>
+
+      <div class="info-box">
+        <p><strong>LOOK CAVE:</strong> CHECK WHAT IN CAVE</p>
+        <ul>
+          <li>YOU SHOW NFT KEY</li>
+          <li>YOU PICK WHAT TOKEN CHECK</li>
+          <li>CAVE TELL YOU HOW MUCH YOU HAVE</li>
+          <li>NO FEE FOR LOOK!</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>CAVE FEE</h2>
+      
+      <p>
+        WHEN YOU TAKE TOKEN OUT CAVE, CAVE TAKE SMALL FEE. THIS KEEP CAVE RUNNING.
+      </p>
+
+      <div class="warning-box">
+        <strong>FEE NOW:</strong>
+        <p style="margin-top: 0.5rem;" class="fee-highlight">
+          0.1% OF WITHDRAWAL (THAT 1 TOKEN PER 1000 TOKEN)
+        </p>
+      </div>
+
+      <div class="info-box">
+        <p><strong>FEE RULES:</strong></p>
+        <ul>
+          <li>FEE ONLY ON TAKE OUT, NOT ON PUT IN</li>
+          <li>FEE NEVER MORE THAN 1% (MAX PROTECTION)</li>
+          <li>CURRENT FEE: 0.1%</li>
+          <li>NO FEE FOR LOOK CAVE</li>
+        </ul>
+      </div>
+
+      <h3>FEE EXAMPLE</h3>
+      <p>
+        YOU TAKE OUT 1000 XRD → FEE IS 1 XRD → YOU GET 999 XRD
+      </p>
+    </div>
+
+    <div class="section">
+      <h2>COMPONENT INTERFACE</h2>
+      <p>FOR DEVELOPER WHO WANT TALK DIRECT TO CAVE:</p>
+
+      <h3>instantiate_cave()</h3>
+      <div class="code-box">
+        Returns: (Global&lt;Hypercave&gt;, Bucket)<br>
+        Purpose: CREATE NEW CAVE + OWNER BADGE
+      </div>
+      <p>MAKE NEW CAVE COMPONENT. GIVE YOU OWNER BADGE TO CONTROL CAVE.</p>
+
+      <h3>in_cave(nft_proof, resources)</h3>
+      <div class="code-box">
+        Parameters:<br>
+        - nft_proof: Proof (MUST BE EXACTLY 1 NFT)<br>
+        - resources: Vec&lt;Bucket&gt; (TOKENS TO PUT IN)<br>
+        Returns: Nothing
+      </div>
+      <p>PUT TOKEN IN CAVE. USE NFT AS KEY. CAN PUT MANY TOKEN TYPE AT ONCE.</p>
+
+      <h3>out_cave(nft_proof, withdrawals)</h3>
+      <div class="code-box">
+        Parameters:<br>
+        - nft_proof: Proof (MUST BE EXACTLY 1 NFT)<br>
+        - withdrawals: Vec&lt;(ResourceAddress, Decimal)&gt;<br>
+        Returns: Vec&lt;Bucket&gt; (YOU TOKEN MINUS FEE)
+      </div>
+      <p>TAKE TOKEN FROM CAVE. SHOW NFT KEY. SAY WHAT WANT AND HOW MUCH. FEE DEDUCTED AUTOMATIC.</p>
+
+      <h3>query_balances(nft_proof, resource_addresses)</h3>
+      <div class="code-box">
+        Parameters:<br>
+        - nft_proof: Proof (MUST BE EXACTLY 1 NFT)<br>
+        - resource_addresses: Vec&lt;ResourceAddress&gt;<br>
+        Returns: Vec&lt;Option&lt;Decimal&gt;&gt;
+      </div>
+      <p>CHECK WHAT IN CAVE WITHOUT TAKE OUT. SHOW NFT KEY. ASK FOR SPECIFIC TOKEN. GET BALANCE OR NONE IF NOT IN CAVE.</p>
+    </div>
+
+    <div class="section">
+      <h2>GOOD NFT FOR USE</h2>
+      
+      <h3>SOUL-BOUND NFT</h3>
+      <p>
+        NFT THAT CANNOT TRANSFER OR SELL. STUCK TO YOU WALLET FOREVER. GOOD FOR CAVE KEY BECAUSE YOU NEVER LOSE BY ACCIDENT OR STEAL.
+      </p>
+
+      <h3>RECALLABLE NFT</h3>
+      <p>
+        NFT THAT CREATOR CAN CALL BACK TO YOU IF YOU LOSE. GOOD IF YOU LOSE ACCESS TO WALLET, CAN RECOVER NFT AND ACCESS CAVE AGAIN.
+      </p>
+
+      <div class="warning-box">
+        <strong>IMPORTANT NFT CHOICE!</strong>
+        <p style="margin-top: 0.5rem;">
+          PICK NFT THAT YOU NO CAN LOSE EASY. IF YOU USE NORMAL NFT AND SEND AWAY OR LOSE, YOU TOKEN IN CAVE GONE FOREVER! SOUL-BOUND OR RECALLABLE BEST FOR SAFE!
+        </p>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>CAVE SAFETY TIPS</h2>
+      <ul>
+        <li>REMEMBER WHAT NFT YOU USE FOR WHAT TOKEN</li>
+        <li>KEEP BACKUP OF NFT KEY INFO</li>
+        <li>TEST WITH SMALL AMOUNT FIRST</li>
+        <li>UNDERSTAND TRANSACTION STILL PUBLIC ON LEDGER (BUT HARD TO ANALYZE)</li>
+        <li>NO ONE CAN HELP IF YOU LOSE NFT KEY (EXCEPT RECALLABLE NFT)</li>
+      </ul>
+    </div>
+
+    <div class="section">
+      <h2>WHERE FEE GO?</h2>
+      <p>
+        ALL PROFIT FROM HYPERCAVE USED TO BUY $ROCK FROM MARKET.
+      </p>
+      <p>
+        CAVE COLLECT SMALL FEE WHEN YOU TAKE TOKEN OUT. THIS FEE NO GO TO POCKET. FEE GO BACK TO $ROCK TOKEN COMMUNITY BY BUYING $ROCK FROM OPEN MARKET.
+      </p>
+    </div>
+
+    <footer style="text-align: center; padding: 3rem 0 2rem 0; color: var(--text-muted);">
+      <p>CAVE KEEP YOU SAFE. USE CAVE WISE.</p>
+      <div class="nav-buttons" style="margin-top: 1.5rem;">
+        <a href="/" class="nav-btn">GO USE CAVE NOW</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
+

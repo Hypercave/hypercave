@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hypercave</title>
+  <link rel="icon" type="image/jpeg" href="/hypercave_favicon.jpeg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Freckle+Face&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="app">
+    <header>
+  <div class="logo">
+    <h1>HYPERCAVE</h1>
+  </div>
+  <a href="/docs" style="position: absolute; left: 2rem; padding: 0.5rem 1rem; background: linear-gradient(135deg, var(--glow-orange) 0%, var(--glow-gold) 100%); border: none; border-radius: 8px; color: var(--bg-dark); font-family: 'Freckle Face', cursive; font-size: 0.9rem; cursor: pointer; text-decoration: none; transition: all 0.3s; letter-spacing: 0.05em;">
+    HOW CAVE WORK?
+  </a>
+  <radix-connect-button></radix-connect-button>
+</header>
+
+    <main>
+      <div class="cave-container">
+       <div class="action-buttons">
+      <div class="action-buttons-row">
+        <button id="btn-in-cave" class="cave-btn in" disabled>
+          IN CAVE
+        </button>
+        <button id="btn-out-cave" class="cave-btn out" disabled>
+          OUT CAVE
+        </button>
+      </div>
+      <button id="btn-look-cave" class="cave-btn look" disabled>
+        LOOK CAVE
+      </button>
+    </div>
+      </div>
+
+      <div id="status-bar" class="status-bar hidden">
+        <span id="status-text"></span>
+      </div>
+    </main>
+
+    <!-- Modal for IN/OUT/LOOK operations -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="modal-title">IN CAVE</h2>
+          <button id="modal-close" class="close-btn">×</button>
+        </div>
+        
+        <div class="modal-body">
+          <!-- NFT Selection -->
+          <section class="section">
+            <h3>PICK NFT</h3>
+            <div class="search-input">
+              <input 
+                type="text" 
+                id="nft-search" 
+                placeholder="FIND NFT..."
+                autocomplete="off"
+              >
+              <div id="nft-dropdown" class="dropdown hidden"></div>
+            </div>
+            <div id="selected-nft" class="selected-item hidden"></div>
+          </section>
+
+          <!-- Resource Selection -->
+          <section id="resource-section" class="section">
+            <h3 id="resource-section-title">WHAT PUT IN?</h3>
+            <div class="search-input">
+              <input 
+                type="text" 
+                id="resource-search" 
+                placeholder="FIND TOKEN..."
+                autocomplete="off"
+              >
+              <div id="resource-dropdown" class="dropdown hidden"></div>
+            </div>
+            <div id="selected-resources" class="selected-list"></div>
+          </section>
+
+          <!-- Balances Display (LOOK CAVE results) -->
+          <section id="balances-section" class="section hidden">
+            <h3 id="balances-section-title"></h3>
+            <div id="cave-balances" class="balances-list"></div>
+          </section>
+        </div>
+
+        <div class="modal-footer">
+          <button id="btn-submit" class="submit-btn" disabled>
+            PUT NOW
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
