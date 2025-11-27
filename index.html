@@ -19,7 +19,16 @@
   <a href="/docs" style="position: absolute; left: 2rem; padding: 0.5rem 1rem; background: linear-gradient(135deg, var(--glow-orange) 0%, var(--glow-gold) 100%); border: none; border-radius: 8px; color: var(--bg-dark); font-family: 'Freckle Face', cursive; font-size: 0.9rem; cursor: pointer; text-decoration: none; transition: all 0.3s; letter-spacing: 0.05em;">
     HOW CAVE WORK?
   </a>
-  <radix-connect-button></radix-connect-button>
+  <div class="header-controls">
+    <div id="account-selector" class="account-selector hidden">
+      <button id="account-selector-btn" class="account-selector-btn">
+        <span id="current-account-text">NO ACCOUNT</span>
+        <span class="dropdown-arrow">▼</span>
+      </button>
+      <div id="account-dropdown" class="account-dropdown hidden"></div>
+    </div>
+    <radix-connect-button></radix-connect-button>
+  </div>
 </header>
 
     <main>

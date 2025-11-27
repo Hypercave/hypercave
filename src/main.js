@@ -23,12 +23,17 @@ import { ModalUI, setStatus, hideStatus } from './ui.js';
 // Global state
 let rdt = null;
 let currentAccount = null;
+let allAccounts = [];
 let modalUI = null;
 
 // DOM elements
 let btnInCave = null;
 let btnLookCave = null;
 let btnOutCave = null;
+let accountSelector = null;
+let accountSelectorBtn = null;
+let currentAccountText = null;
+let accountDropdown = null;
 
 /**
  * Initialize the application
@@ -38,7 +43,11 @@ async function init() {
   btnInCave = document.getElementById('btn-in-cave');
   btnLookCave = document.getElementById('btn-look-cave');
   btnOutCave = document.getElementById('btn-out-cave');
-  
+  accountSelector = document.getElementById('account-selector');
+  accountSelectorBtn = document.getElementById('account-selector-btn');
+  currentAccountText = document.getElementById('current-account-text');
+  accountDropdown = document.getElementById('account-dropdown');
+
   // Initialize Radix dApp Toolkit
   rdt = RadixDappToolkit({
     networkId: RadixNetwork.Stokenet,
@@ -49,36 +58,144 @@ async function init() {
 
   // After rdt = RadixDappToolkit(...)
   rdt.buttonApi.setTheme('radix-blue');
-  
+
   // Configure what data to request from wallet on connect
   rdt.walletApi.setRequestData(
     DataRequestBuilder.accounts().atLeast(1)
   );
-  
+
   // Subscribe to wallet connection state changes
   rdt.walletApi.walletData$.subscribe((walletData) => {
     console.log('Wallet data updated:', walletData);
-    
+
     if (walletData.accounts && walletData.accounts.length > 0) {
-      currentAccount = walletData.accounts[0];
+      allAccounts = walletData.accounts;
+
+      // If no account is selected or current account not in list, select first
+      if (!currentAccount || !allAccounts.find(acc => acc.address === currentAccount.address)) {
+        currentAccount = allAccounts[0];
+      }
+
+      updateAccountSelector();
       onAccountConnected();
     } else {
+      allAccounts = [];
       currentAccount = null;
+      updateAccountSelector();
       onAccountDisconnected();
     }
   });
-  
+
   // Initialize modal UI
   modalUI = new ModalUI();
   modalUI.onSubmit = handleTransaction;
   modalUI.onLookup = handleLookup;
-  
+
   // Bind button click events
   btnInCave.addEventListener('click', () => openModal('in'));
   btnLookCave.addEventListener('click', () => openModal('look'));
   btnOutCave.addEventListener('click', () => openModal('out'));
-  
+
+  // Bind account selector events
+  accountSelectorBtn.addEventListener('click', () => toggleAccountDropdown());
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!accountSelector.contains(e.target)) {
+      accountDropdown.classList.add('hidden');
+    }
+  });
+
   console.log('Hypercave initialized');
+}
+
+/**
+ * Update the account selector UI
+ */
+function updateAccountSelector() {
+  if (!currentAccount || allAccounts.length === 0) {
+    // Hide selector when no accounts
+    accountSelector.classList.add('hidden');
+    currentAccountText.textContent = 'NO ACCOUNT';
+    return;
+  }
+
+  // Show selector when accounts are connected
+  accountSelector.classList.remove('hidden');
+
+  // Update current account display with label/name
+  const accountIndex = allAccounts.findIndex(acc => acc.address === currentAccount.address);
+  const accountName = currentAccount.label || `ACCOUNT ${accountIndex + 1}`;
+  currentAccountText.textContent = accountName;
+
+  // Render account dropdown
+  renderAccountDropdown();
+}
+
+/**
+ * Toggle the account dropdown visibility
+ */
+function toggleAccountDropdown() {
+  accountDropdown.classList.toggle('hidden');
+}
+
+/**
+ * Render the account dropdown list
+ */
+function renderAccountDropdown() {
+  if (allAccounts.length === 0) {
+    accountDropdown.innerHTML = '<div class="account-dropdown-empty">NO ACCOUNT</div>';
+    return;
+  }
+
+  let html = '';
+
+  allAccounts.forEach((account, index) => {
+    const isSelected = currentAccount && account.address === currentAccount.address;
+    const selectedClass = isSelected ? 'selected' : '';
+    const label = account.label || `ACCOUNT ${index + 1}`;
+    const address = account.address;
+
+    html += `
+      <div class="account-dropdown-item ${selectedClass}" data-address="${address}">
+        <div>
+          <div class="account-label">${label}</div>
+          <div class="account-address">${address}</div>
+        </div>
+      </div>
+    `;
+  });
+
+  accountDropdown.innerHTML = html;
+
+  // Bind click events to switch accounts
+  accountDropdown.querySelectorAll('.account-dropdown-item').forEach(el => {
+    el.addEventListener('click', () => {
+      const address = el.dataset.address;
+      selectAccount(address);
+    });
+  });
+}
+
+/**
+ * Select a specific account by address
+ */
+function selectAccount(address) {
+  const account = allAccounts.find(acc => acc.address === address);
+  if (!account) return;
+
+  currentAccount = account;
+
+  // Update UI
+  updateAccountSelector();
+
+  // Close dropdown
+  accountDropdown.classList.add('hidden');
+
+  // Clear caches as we've switched accounts
+  sessionCache.clear();
+
+  console.log('Switched to account:', currentAccount.address);
 }
 
 /**
@@ -89,8 +206,8 @@ function onAccountConnected() {
   btnInCave.disabled = false;
   btnLookCave.disabled = false;
   btnOutCave.disabled = false;
-  
-  
+
+
   // Clear any stale session cache
   sessionCache.clear();
 }
