@@ -40,6 +40,23 @@
       min-height: 100vh;
       color: var(--text-light);
       line-height: 1.8;
+      position: relative;
+    }
+
+    /* Fixed background for mobile browsers that don't support background-attachment: fixed */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--bg-dark);
+      background-image: url('../hypercave.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      z-index: -1;
     }
 
     .container {
